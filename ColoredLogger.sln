@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37502.11 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColoredLogger", "ColoredLogger.csproj", "{6470526C-C582-4BC4-BA96-DAACDB87C4A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6470526C-C582-4BC4-BA96-DAACDB87C4A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6470526C-C582-4BC4-BA96-DAACDB87C4A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6470526C-C582-4BC4-BA96-DAACDB87C4A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6470526C-C582-4BC4-BA96-DAACDB87C4A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40639E5B-6A1B-4342-852B-8DCE710AF3CC}
+	EndGlobalSection
+EndGlobal

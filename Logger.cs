@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using Wacton.Unicolour;
+﻿using System;
+using System.Diagnostics;
 
 namespace ColoredLogger
 {
@@ -59,7 +59,7 @@ namespace ColoredLogger
         public static double EndTimingBlock()
         {
             if (startTimes.Count == 0) return 0.0;
-                
+
             return appTimer.Elapsed.TotalSeconds - startTimes.Pop();
         }
         public static string EndTimingBlockFormatted()
@@ -115,7 +115,7 @@ namespace ColoredLogger
         }
 
         public static void PrintEmptyLine() => Console.WriteLine();
-   
+
         public static void PrintTestColors()
         {
             var lb = new LogBuilder();
@@ -163,12 +163,11 @@ namespace ColoredLogger
             for (int i = 0; i < n; i++)
             {
                 float hue = i / (float)n; // 0.0 to 1.0
-                Unicolour col = new Unicolour(ColourSpace.Hsb, hue, 1, 1);
-                Rgb rgb = col.Rgb;
+                (double R, double G, double B) = HslToRgb(hue, 1, 1);
                 lbSquares.Col(
-                    (int)(rgb.R * 255),
-                    (int)(rgb.G * 255),
-                    (int)(rgb.B * 255)
+                    (int)(R * 255),
+                    (int)(G * 255),
+                    (int)(B * 255)
                     ).Write("■");
             }
 
@@ -176,6 +175,49 @@ namespace ColoredLogger
             lbSquares.WriteLine(""); // New line at the end
             lbSquares.Log();
         }
+
+        public static (double R, double G, double B) HslToRgb(double h, double s, double l)
+        {
+            // Normalize hue to [0, 1] range
+            h = (h % 360.0) / 360.0;
+            if (h < 0) h += 1.0;
+
+            s = Math.Clamp(s, 0.0, 1.0);
+            l = Math.Clamp(l, 0.0, 1.0);
+
+            double r = l;
+            double g = l;
+            double b = l;
+
+            if (s != 0.0)
+            {
+                double max = l < 0.5 ? l * (1.0 + s) : (l + s) - (l * s);
+                double min = 2.0 * l - max;
+
+                r = HueToRgbChannel(min, max, h + 1.0 / 3.0);
+                g = HueToRgbChannel(min, max, h);
+                b = HueToRgbChannel(min, max, h - 1.0 / 3.0);
+            }
+
+            return (
+                r,
+                g,
+                b
+            );
+        }
+
+        private static double HueToRgbChannel(double min, double max, double h)
+        {
+            if (h < 0.0) h += 1.0;
+            if (h > 1.0) h -= 1.0;
+
+            if (h * 6.0 < 1.0) return min + (max - min) * 6.0 * h;
+            if (h * 2.0 < 1.0) return max;
+            if (h * 3.0 < 2.0) return min + (max - min) * (2.0 / 3.0 - h) * 6.0;
+
+            return min;
+        }
+
     }
 
     public enum LogLevel

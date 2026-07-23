@@ -7,8 +7,4 @@
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Wacton.Unicolour" Version="8.0.0" />
-  </ItemGroup>
-
 </Project>

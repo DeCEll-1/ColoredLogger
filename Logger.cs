@@ -163,7 +163,7 @@ namespace ColoredLogger
             for (int i = 0; i < n; i++)
             {
                 float hue = i / (float)n; // 0.0 to 1.0
-                (double R, double G, double B) = HslToRgb(hue, 1, 1);
+                (double R, double G, double B) = HslToRgb(hue, 1, 0.5f);
                 lbSquares.Col(
                     (int)(R * 255),
                     (int)(G * 255),
@@ -179,7 +179,7 @@ namespace ColoredLogger
         public static (double R, double G, double B) HslToRgb(double h, double s, double l)
         {
             // Normalize hue to [0, 1] range
-            h = (h % 360.0) / 360.0;
+            h = h % 1.0;
             if (h < 0) h += 1.0;
 
             s = Math.Clamp(s, 0.0, 1.0);

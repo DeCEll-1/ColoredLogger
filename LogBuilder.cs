@@ -8,9 +8,15 @@ namespace ColoredLogger
 
         private StringBuilder logBuilderSB = new();
 
-        public LogBuilder Write(object text)
+        public LogBuilder Write(object txt, int padding = 0)
         {
-            logBuilderSB.Append(text.ToString() ?? "");
+            string text = (txt.ToString() ?? "");
+            if (padding > 0)
+                text = text.PadLeft(padding);
+            else if (padding < 0)
+                text = text.PadRight(Math.Abs(padding));
+
+            logBuilderSB.Append(text);
             return this;
         }
         public LogBuilder WriteLine(object text)

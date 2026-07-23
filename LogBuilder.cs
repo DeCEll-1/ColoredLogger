@@ -4,7 +4,11 @@ namespace ColoredLogger
 {
     public class LogBuilder
     {
-        public LogBuilder() { }
+        public LogBuilder((int r, int g, int b)? fg = null, (int r, int g, int b)? bg = null)
+        {
+            defaultFGColor = fg ?? LogColors.whiteRGB;
+            defaultBGColor = bg ?? LogColors.blackRGB;
+        }
 
         private StringBuilder logBuilderSB = new();
 
